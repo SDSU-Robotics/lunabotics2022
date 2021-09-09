@@ -1,4 +1,4 @@
-# lunabotics2020
+# lunabotics2022
 
 ## Prerequisites
 
@@ -19,8 +19,8 @@
      - `echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc`
      - `source ~/.bashrc`
  2. Clone latest rplidar package from github `git clone https://github.com/Slamtec/rplidar_ros.git` .
- 3. Clone repo into user directory `git clone https://github.com/SDSU-Robotics/lunabotics2020.git`.
- 4. Navigate into repo `cd lunabotics2020`.
+ 3. Clone repo into user directory `git clone https://github.com/SDSU-Robotics/lunabotics2022.git`.
+ 4. Navigate into repo `cd lunabotics2022`.
 
 ## Building
  1. `cd ~/catkin_ws`
