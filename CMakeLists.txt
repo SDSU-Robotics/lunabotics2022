@@ -27,6 +27,6 @@ catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
 
-add_executable(bhagyapublisher ${PROJECT_SOURCE_DIR}/bhagyapublisher.cpp)
+add_executable(bhagyapublisher ${PROJECT_SOURCE_DIR}/src/bhagyapublisher.cpp)
 
 target_link_libraries(bhagyapublisher ${catkin_LIBRARIES})
