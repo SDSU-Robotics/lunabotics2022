@@ -1,5 +1,5 @@
 # Project's name
-PROJECT (lunabotics2020)
+PROJECT (lunabotics2022)
 
 # Specify the minimum version for CMake
 cmake_minimum_required(VERSION 3.1)

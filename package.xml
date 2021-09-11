@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-	<name>lunabotics2020</name>
+	<name>lunabotics2022</name>
 	<version>0.0.0</version>
 	<description>Custom package for the SDSU Robotics Club NASA Lunabotics 2020 robot</description>
 
@@ -12,7 +12,7 @@
 	<!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
 	<license>TODO</license>
 
-	<url type="website">https://github.com/sdsu-robotics/lunabotics2020</url> -->
+	<url type="website">https://github.com/sdsu-robotics/lunabotics2022</url> -->
 
 
 	<!-- Author tags are optional, multiple are allowed, one per tag -->
