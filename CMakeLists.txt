@@ -26,3 +26,6 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
+
+add_executable(Odometry ${PROJECT_SOURCE_DIR}/Odometry/odometry.cpp)
+target_link_libraries(Odometry ${catkin_LIBRARIES})
