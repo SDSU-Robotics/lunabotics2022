@@ -34,4 +34,9 @@ target_link_libraries(landonTalker ${catkin_LIBRARIES} Threads::Threads)
 add_executable(landonListener ${PROJECT_SOURCE_DIR}/src/landonListener.cpp)
 target_link_libraries(landonListener ${catkin_LIBRARIES} Threads::Threads)
 
+add_executable(laserScan ${PROJECT_SOURCE_DIR}/Sensor/laserScan.cpp)
+#add_executable(landonHeader ${PROJECT_SOURCE_DIR}/Sensor/landonHeader.cpp)
+target_link_libraries(laserScan ${catkin_LIBRARIES})
+
+
 
