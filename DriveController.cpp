@@ -50,8 +50,10 @@ int main (int argc, char **argv)
 	bool buttons[12];
 	double axes[6];
 
-	ros::Publisher l_speed_pub = n.advertise<std_msgs::Float32>("l_speed", 100);
-    ros::Publisher r_speed_pub = n.advertise<std_msgs::Float32>("r_speed", 100);
+	ros::Publisher l_back_pub = n.advertise<std_msgs::Float32>("l_back", 100);
+    ros::Publisher r_front_pub = n.advertise<std_msgs::Float32>("r_front", 100);
+	ros::Publisher l_back_pub = n.advertise<std_msgs::Float32>("l_back", 100);
+    ros::Publisher r_front_pub = n.advertise<std_msgs::Float32>("r_front", 100);
 	
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
@@ -64,11 +66,15 @@ int main (int argc, char **argv)
 		float speed = axes[1]; // left Y
 		float turn = 1 * axes[3]; // right X
 
-		l_speed_msg.data = 0.75 * speed + 0.4 * turn;
-		r_speed_msg.data = 0.75 * speed - 0.4 * turn;
+		l_back_msg.data = 0.75 * speed + 0.4 * turn;
+		r_back_msg.data = 0.75 * speed - 0.4 * turn;
+		l_front_msg.data = 0.75 * speed + 0.4 * turn;
+		r_back_msg.data = 0.75 * speed - 0.4 * turn;
 		
-		l_speed_pub.publish(l_speed_msg);
-		r_speed_pub.publish(r_speed_msg);
+		l_back_pub.publish(l_back_msg);
+		r_back_pub.publish(r_back_msg);
+		l_front_pub.publish(l_front_msg);
+		r_front_pub.publish(r_front_msg);
 		
 		ros::spinOnce();
 		loop_rate.sleep();
