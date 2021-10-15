@@ -1,6 +1,7 @@
 #include <string>
 #include <unistd.h>
-
+#include "joymap.h"
+#include "deviceIDs.h"
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
 #include <sensor_msgs/Joy.h>
@@ -50,17 +51,19 @@ int main (int argc, char **argv)
 	bool buttons[12];
 	double axes[6];
 
-	ros::Publisher l_back_pub = n.advertise<std_msgs::Float32>("l_back", 100);
+	ros::Publisher l_front_pub = n.advertise<std_msgs::Float32>("l_front", 100);
     ros::Publisher r_front_pub = n.advertise<std_msgs::Float32>("r_front", 100);
 	ros::Publisher l_back_pub = n.advertise<std_msgs::Float32>("l_back", 100);
-    ros::Publisher r_front_pub = n.advertise<std_msgs::Float32>("r_front", 100);
+    ros::Publisher r_back_pub = n.advertise<std_msgs::Float32>("r_back", 100);
 	
-    std_msgs::Float32 l_speed_msg;
-    std_msgs::Float32 r_speed_msg;
+    std_msgs::Float32 l_back_msg;
+    std_msgs::Float32 r_back_msg;
+	std_msgs::Float32 l_front_msg;
+	std_msgs::Float32 r_front_msgs;
 	
 	while (ros::ok())
 	{
-        listener.getJoyVals(buttons, axes);
+        listener.getJoyVals(buttons, axes);	
 
 		// get controller values
 		float speed = axes[1]; // left Y
