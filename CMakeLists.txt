@@ -26,3 +26,12 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
+
+add_executable(Michaelpublisher ${PROJECT_SOURCE_DIR}/src/Michaelpublisher.cpp)
+
+target_link_libraries(Michaelpublisher ${catkin_LIBRARIES})
+
+
+add_executable(Autonomy ${PROJECT_SOURCE_DIR}/src/Autonomy 10-09.cpp)
+
+target_link_libraries(Autonomy ${catkin_LIBRARIES})
