@@ -54,11 +54,6 @@ int main (int argc, char **argv)
 	ros::NodeHandle n;
 	ros::Rate loop_rate(100);
 
-	// Publishes the message to the hardware interface
-	ros::Publisher l_current_pub = n.advertise<std_msgs::Float32>("ExcvLDrvCurrent", 100);
-	ros::Publisher r_current_pub = n.advertise<std_msgs::Float32>("ExcvRDrvCurrent", 100);
-
-
     // sets the message to the message variable
 	std_msgs::Float32 l_current_msg;
 	std_msgs::Float32 r_current_msg;

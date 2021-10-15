@@ -50,8 +50,9 @@ int main (int argc, char **argv)
 	bool buttons[12];
 	double axes[6];
 
-	ros::Publisher l_drive = n.advertise<std_msgs::Float32>("ExcvLDrvCurrent", 100);
-    ros::Publisher r_drive = n.advertise<std_msgs::Float32>("ExcvRDrvCurrent", 100);
+
+    ros::Publisher r_front_pub = n.advertise<std_msgs::Float32>("ExcvRDrvPwr", 100);
+	ros::Publisher l_back_pub = n.advertise<std_msgs::Float32>("ExcvLDrvPwr", 100);
 	
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
