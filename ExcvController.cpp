@@ -39,9 +39,7 @@ public:
 
 private:
     bool _buttons[12] = { 0 }; // declare array for button values
-	double _axes[6] = { 0 }; // declare array for axes values
-
-	
+	double _axes[6] = { 0 }; // declare array for axes values	
 };
 
 
@@ -206,7 +204,8 @@ void Listener::trencherPitch(double &downTgr, double &upTgr, std_msgs::Float32 &
 		msg.data = 0;
 }
 
-void ResetTrencherPitch (double &downTgr, double &upTgr){
+void ResetTrencherPitch (double &downTgr, double &upTgr)
+{
 	downTgr = 0;
 	upTgr = 0;
 }
