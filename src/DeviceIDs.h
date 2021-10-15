@@ -3,9 +3,9 @@
 
 namespace DeviceIDs
 {
-	static const int ExcvDrvLTal = 10;
-	static const int ExcvDrvRTal = 11;
-	static const int ExcvConveyorDrvVic = 12;
+	static const int ExcvDrvLTal = 10; //****
+	static const int ExcvDrvRTal = 11; //****
+	static const int ExcvConveyorDrvVic = 12; //*** this but auger
 	static const int ExcvExtendTal = 13;
 	static const int ExcvPitchTal = 14;
 	static const int ExcvDriveTal = 15;
