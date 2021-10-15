@@ -51,8 +51,8 @@ int main (int argc, char **argv)
 	double axes[6];
 
 
-    ros::Publisher r_front_pub = n.advertise<std_msgs::Float32>("ExcvRDrvPwr", 100);
-	ros::Publisher l_back_pub = n.advertise<std_msgs::Float32>("ExcvLDrvPwr", 100);
+    ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("ExcvRDrvPwr", 100);
+	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("ExcvLDrvPwr", 100);
 	
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
@@ -65,15 +65,12 @@ int main (int argc, char **argv)
 		float speed = axes[1]; // left Y
 		float turn = 1 * axes[3]; // right X
 
-		l_back_msg.data = 0.75 * speed + 0.4 * turn;
-		r_back_msg.data = 0.75 * speed - 0.4 * turn;
-		l_front_msg.data = 0.75 * speed + 0.4 * turn;
-		r_back_msg.data = 0.75 * speed - 0.4 * turn;
+		l_speed_msg.data = 0.75 * speed + 0.4 * turn;
+		r_speed_msg.data = 0.75 * speed - 0.4 * turn;
 		
-		l_back_pub.publish(l_back_msg);
-		r_back_pub.publish(r_back_msg);
-		l_front_pub.publish(l_front_msg);
-		r_front_pub.publish(r_front_msg);
+		
+		l_drive_pub.publish(l_speed_msg);
+		r_drive_pub.publish(r_speed_msg);
 		
 		ros::spinOnce();
 		loop_rate.sleep();

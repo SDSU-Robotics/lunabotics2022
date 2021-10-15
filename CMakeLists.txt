@@ -26,9 +26,10 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
-add_executable(DriveController ${PROJECT_SOURCE_DIR}/src/DriveController.cpp)
-target_link_libraries(DriveController ${catkin_LIBRARIES})
 
+add_executable(DriveController ${PROJECT_SOURCE_DIR}/src/DriveController.cpp)
 add_executable(ExcvDriveBaseHW ${PROJECT_SOURCE_DIR}/src/ExcvDriveBaseHW.cpp)
-target_link_libraries(ExcvDriveBaseHW ${catkin_LIBRARIES})
+
+target_link_libraries(DriveController ${catkin_LIBRARIES} Threads::Threads)
+target_link_libraries(ExcvDriveBaseHW ${catkin_LIBRARIES} Threads::Threads)
 
