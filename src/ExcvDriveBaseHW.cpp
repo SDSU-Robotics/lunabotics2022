@@ -39,7 +39,7 @@ class Listener
         void getRSpeed(const std_msgs::Float32 rspeed);
 		void getTwistSpeed(const geometry_msgs::Twist twist);
 		void setMotorOutput(const float left, const float right);
-		void getMotorStatus(const std_msgs::Bool motor);
+		void getMotorStatus(const std_msgs::Float32 motor);
 		bool motor_status = 0;
 		float leftPower = 0;
 		float rightPower = 0;
@@ -135,7 +135,7 @@ void Listener::setMotorOutput(const float left, const float right)
 	ctre::phoenix::unmanaged::FeedEnable(100);	
 }
 
-void Listener::getMotorStatus(const std_msgs::Bool motor)
+void Listener::getMotorStatus(const std_msgs::Float32 motor)
 {
 	motor_status = motor.data;
 }
