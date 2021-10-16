@@ -6,6 +6,7 @@
 #include "ctre/phoenix/unmanaged/Unmanaged.h"
 #include "DeviceIDs.h"
 #include "ctre/phoenix/motorcontrol/SensorCollection.h"
+#include "std_msgs/Bool.h"
 #include <iostream>
 #include <string>
 
@@ -38,6 +39,8 @@ class Listener
         void getRSpeed(const std_msgs::Float32 rspeed);
 		void getTwistSpeed(const geometry_msgs::Twist twist);
 		void setMotorOutput(const float left, const float right);
+		void getMotorStatus(const std_msgs::Bool motor);
+		bool motor_status = 0;
 		float leftPower = 0;
 		float rightPower = 0;
 		
@@ -67,6 +70,8 @@ int main (int argc, char **argv)
 
 	ros::Subscriber r_drive_sub = n.subscribe("ExcvRDrvPwr", 100, &Listener::getRSpeed, &listener);
 	// Right speed of excavator drive power
+
+	ros::Subscriber motor_toggle_sub = n.subscribe("MotorToggle", 100, &Listener::getMotorStatus, &listener);
 
 	//ros::Subscriber twistSpeedSub = n.subscribe("cmd_vel", 100, &Listener::getTwistSpeed, &listener);
 	// Right and Left speed of excavator drive power
@@ -128,4 +133,9 @@ void Listener::setMotorOutput(const float left, const float right)
 	rightDrive.Set(ControlMode::PercentOutput, right);
 
 	ctre::phoenix::unmanaged::FeedEnable(100);	
+}
+
+void Listener::getMotorStatus(const std_msgs::Bool motor)
+{
+	motor_status = motor.data;
 }
