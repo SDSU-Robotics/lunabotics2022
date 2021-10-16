@@ -71,7 +71,7 @@ int main (int argc, char **argv)
 	ros::Subscriber r_drive_sub = n.subscribe("ExcvRDrvPwr", 100, &Listener::getRSpeed, &listener);
 	// Right speed of excavator drive power
 
-	ros::Subscriber motor_toggle_sub = n.subscribe("MotorToggle", 100, &Listener::getMotorStatus, &listener);
+	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getMotorStatus, &listener);
 
 	//ros::Subscriber twistSpeedSub = n.subscribe("cmd_vel", 100, &Listener::getTwistSpeed, &listener);
 	// Right and Left speed of excavator drive power

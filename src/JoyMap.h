@@ -29,7 +29,11 @@ namespace JoyMap
     static const int SemiAutonomyToggle = 0;
 
     // Motor Toggle Function
-    static const int MotorToggle = 3; // Y
+    static const int AugerToggle = 3; // Y
+
+    // Left/Right Drive
+    static const int LeftDrive = 1; // Up/Down Axis stick left
+    static const int RightDrive = 3; // Up/Down Axis stick right
 };
 
 #endif

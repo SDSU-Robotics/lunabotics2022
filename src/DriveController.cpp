@@ -9,6 +9,8 @@
 
 using namespace std;
 
+#define DRIVE_SCALE 1
+
 class Listener
 {
 public:
@@ -78,14 +80,17 @@ int main (int argc, char **argv)
 	bool buttons[12];
 	double axes[6];
 
-	uint Ybutton = {JoyMap::MotorToggle};
+	uint Ybutton = {JoyMap::AugerToggle};
 	bool Ycurrent = 0; // initialized to false
 	bool Yon = false; // initialized to false
+
+	int Lstick_Yaxis = {JoyMap::LeftDrive};
+    int Rstick_Yaxis = {JoyMap::RightDrive};
 
 	// publishers
     ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("ExcvRDrvPwr", 100);
 	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("ExcvLDrvPwr", 100);
-	ros::Publisher motor_toggle_pub = n.advertise<std_msgs::Float32>("MotorToggle", 100);
+	ros::Publisher motor_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
 	
 	// messages
     std_msgs::Float32 l_speed_msg;
@@ -102,8 +107,8 @@ int main (int argc, char **argv)
 		float turn = 1 * axes[3]; // right X
 
 		// get speed data
-		l_speed_msg.data = 0.75 * speed + 0.4 * turn;
-		r_speed_msg.data = 0.75 * speed - 0.4 * turn;
+		l_speed_msg.data = axes[Lstick_Yaxis] * DRIVE_SCALE; // left up/down stick
+		r_speed_msg.data = axes[Rstick_Yaxis] * DRIVE_SCALE; // right up/down stick
 		// publish speed data
 		l_drive_pub.publish(l_speed_msg);
 		r_drive_pub.publish(r_speed_msg);
