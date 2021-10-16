@@ -14,7 +14,7 @@ class Listener
 public:
 	void joyListener(const sensor_msgs::Joy::ConstPtr& Joy);
 	void getJoyVals(bool buttons[], double axes[]) const;
-	void toggleBool(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
+	void augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
 
 private:
     bool _buttons[12] = { 0 };
@@ -41,7 +41,7 @@ void Listener::getJoyVals(bool buttons[], double axes[]) const
         axes[i] = _axes[i];
 }
 
-void Listener::toggleBool(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
+void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
 {
 	bool prev = current;
 	current = b;
@@ -109,7 +109,7 @@ int main (int argc, char **argv)
 		r_drive_pub.publish(r_speed_msg);
 
 		// toggle Y button to turn motor on/off
-		listener.toggleBool(buttons[Ybutton], Ycurrent, Yon, motor_toggle_msg);
+		listener.augerToggle(buttons[Ybutton], Ycurrent, Yon, motor_toggle_msg);
 		motor_toggle_pub.publish(motor_toggle_msg);
 		
 		ros::spinOnce();
