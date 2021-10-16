@@ -26,3 +26,9 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
+
+add_executable(Izaktalker ${PROJECT_SOURCE_DIR}/src/Izaktalker.cpp)
+target_link_libraries(Izaktalker ${catkin_LIBRARIES} Threads::Threads)
+
+add_executable(Izaklistener ${PROJECT_SOURCE_DIR}/src/Izaklistener.cpp)
+target_link_libraries(Izaklistener ${catkin_LIBRARIES} Threads::Threads)
