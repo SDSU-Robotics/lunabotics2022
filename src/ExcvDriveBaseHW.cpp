@@ -62,10 +62,10 @@ int main (int argc, char **argv)
 	
 	Listener listener;
 
-	ros::Subscriber lSpeedSub = n.subscribe("ExcvLDrvPwr", 100, &Listener::getLSpeed, &listener);
+	ros::Subscriber l_drive_sub = n.subscribe("ExcvLDrvPwr", 100, &Listener::getLSpeed, &listener);
 	// Left speed of excavator drive power
 
-	ros::Subscriber rSpeedSub = n.subscribe("ExcvRDrvPwr", 100, &Listener::getRSpeed, &listener);
+	ros::Subscriber r_drive_sub = n.subscribe("ExcvRDrvPwr", 100, &Listener::getRSpeed, &listener);
 	// Right speed of excavator drive power
 
 	//ros::Subscriber twistSpeedSub = n.subscribe("cmd_vel", 100, &Listener::getTwistSpeed, &listener);
@@ -85,11 +85,11 @@ int main (int argc, char **argv)
 
 		ROS_INFO_STREAM("Msg: " << mssg);
 
-		listener.setMotorOutput(listener.leftPower, listener.rightPower);
-		l_current_msg.data = listener.leftDrive.GetOutputCurrent();
-		l_current_pub.publish(l_current_msg);
-		r_current_msg.data = listener.rightDrive.GetOutputCurrent();
-		r_current_pub.publish(r_current_msg);
+		//listener.setMotorOutput(listener.leftPower, listener.rightPower);
+		//l_current_msg.data = listener.leftDrive.GetOutputCurrent();
+		//l_current_pub.publish(l_current_msg);
+		//r_current_msg.data = listener.rightDrive.GetOutputCurrent();
+		//r_current_pub.publish(r_current_msg);
 		
 		
 

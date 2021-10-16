@@ -33,3 +33,8 @@ add_executable(ExcvDriveBaseHW ${PROJECT_SOURCE_DIR}/src/ExcvDriveBaseHW.cpp)
 target_link_libraries(DriveController ${catkin_LIBRARIES} Threads::Threads)
 target_link_libraries(ExcvDriveBaseHW ${catkin_LIBRARIES} Threads::Threads)
 
+target_link_libraries(ExcvDriveBaseHW ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
+target_link_libraries(ExcvDriveBaseHW ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
+target_link_libraries(ExcvDriveBaseHW ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
+target_link_libraries(ExcvDriveBaseHW ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
+
