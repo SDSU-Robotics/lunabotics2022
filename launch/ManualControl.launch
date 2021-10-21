@@ -6,8 +6,8 @@
         <remap from="/joy" to="/Excv/joy" />
 	</node>
 
-    <node pkg="lunabotics2022" type="DriveController" name="DriveController" />
-    <node pkg="lunabotics2022" type="ExcvDriveBaseHW" name="ExcvDriveBaseHW" />
+    <node pkg="lunabotics2022" type="ManualDriveController" name="ManualDriveController" />
+    <node pkg="lunabotics2022" type="ManualDriveBase" name="ManualDriveBase" />
 
 
 </launch>

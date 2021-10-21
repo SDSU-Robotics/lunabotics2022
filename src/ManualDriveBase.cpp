@@ -1,12 +1,12 @@
 #include "ctre/Phoenix.h"
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
+#include "std_msgs/Int32.h"
 #include "geometry_msgs/Twist.h"
 #include "ctre/phoenix/platform/Platform.h"
 #include "ctre/phoenix/unmanaged/Unmanaged.h"
 #include "DeviceIDs.h"
 #include "ctre/phoenix/motorcontrol/SensorCollection.h"
-#include "std_msgs/Bool.h"
 #include <iostream>
 #include <string>
 
@@ -15,7 +15,6 @@ using namespace ctre::phoenix;
 using namespace ctre::phoenix::platform;
 using namespace ctre::phoenix::motorcontrol;
 using namespace ctre::phoenix::motorcontrol::can;
-//using namespace ctre::phoenix::MotorControl::SensorCollection;
 
 #define LINEAR_ADJ 1
 #define ANGULAR_ADJ 1
@@ -46,14 +45,11 @@ class Listener
 		
         TalonSRX leftDrive = {DeviceIDs::ExcvDrvLTal};
         TalonSRX rightDrive = {DeviceIDs::ExcvDrvRTal};
-	//	SensorCollection lDrive(leftDrive);//(leftDrive.getSensorCollection());
-
-		//ctre::phoenix::motorcontrol::SensorCollection::SensorCollection lDrive(leftDrive);
-};
+	};
 
 int main (int argc, char **argv)
 {
-    ros::init(argc, argv, "ExcvDriveBase");
+    ros::init(argc, argv, "ManualDriveBase");
 	ros::NodeHandle n;
 	ros::Rate loop_rate(100);
 
@@ -65,39 +61,23 @@ int main (int argc, char **argv)
 	
 	Listener listener;
 
-	ros::Subscriber l_drive_sub = n.subscribe("ExcvLDrvPwr", 100, &Listener::getLSpeed, &listener);
+	ros::Subscriber l_drive_sub = n.subscribe("LDrvPwr", 100, &Listener::getLSpeed, &listener);
 	// Left speed of excavator drive power
 
-	ros::Subscriber r_drive_sub = n.subscribe("ExcvRDrvPwr", 100, &Listener::getRSpeed, &listener);
+	ros::Subscriber r_drive_sub = n.subscribe("RDrvPwr", 100, &Listener::getRSpeed, &listener);
 	// Right speed of excavator drive power
 
 	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getMotorStatus, &listener);
 
-	//ros::Subscriber twistSpeedSub = n.subscribe("cmd_vel", 100, &Listener::getTwistSpeed, &listener);
-	// Right and Left speed of excavator drive power
+	ros::Publisher wheelPos = n.advertise<std_msgs::Int32>("WheelPos", 100);
 
-	//ros::Subscriber l_wheel_sub = n.subscribe("insert topic", 100, /*insert function*/, &listener);
-	//ros::Subscriber r_wheel_sub = n.subscribe("insert topic", 100, /*insert function*/, &listener);
-	
-	int x;
-	string mssg;
+	std_msgs::Int32 pos;
 
 	while (ros::ok())
 	{
-		//x = phoenix::motorcontrol::SensorCollection::GetQuadratureVelocity(listener.leftDrive); 
-		x = listener.leftDrive.GetSensorCollection().GetQuadratureVelocity();
-		mssg = to_string(x);
-
-		ROS_INFO_STREAM("Msg: " << mssg);
-
-		//listener.setMotorOutput(listener.leftPower, listener.rightPower);
-		//l_current_msg.data = listener.leftDrive.GetOutputCurrent();
-		//l_current_pub.publish(l_current_msg);
-		//r_current_msg.data = listener.rightDrive.GetOutputCurrent();
-		//r_current_pub.publish(r_current_msg);
+		pos.data = listener.leftDrive.GetSensorCollection().GetQuadraturePosition();
+		wheelPos.publish(pos);
 		
-		
-
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
@@ -108,7 +88,6 @@ int main (int argc, char **argv)
 Listener::Listener()
 {
 	rightDrive.SetInverted(true);
-	//lDrive = leftDrive.GetSensorCollection();
 }
 
 void Listener::getLSpeed(const std_msgs::Float32 lspeed)

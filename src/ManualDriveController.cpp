@@ -69,7 +69,7 @@ void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Floa
 
 int main (int argc, char **argv)
 {
-    ros::init(argc, argv, "DriveController");
+    ros::init(argc, argv, "ManualDriveController");
 	ros::NodeHandle n;
 	ros::Rate loop_rate(100);
 
@@ -88,8 +88,8 @@ int main (int argc, char **argv)
     int Rstick_Yaxis = {JoyMap::RightDrive};
 
 	// publishers
-    ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("ExcvRDrvPwr", 100);
-	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("ExcvLDrvPwr", 100);
+    ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("RDrvPwr", 100);
+	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("LDrvPwr", 100);
 	ros::Publisher motor_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
 	
 	// messages
