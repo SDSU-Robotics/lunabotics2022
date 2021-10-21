@@ -30,7 +30,7 @@ include_directories (src include ${catkin_INCLUDE_DIRS})
 add_executable(ManualDriveController ${PROJECT_SOURCE_DIR}/src/ManualDriveController.cpp)
 add_executable(ManualDriveBase ${PROJECT_SOURCE_DIR}/src/ManualDriveBase.cpp)
 
-target_link_libraries(DriveController ${catkin_LIBRARIES} Threads::Threads)
+target_link_libraries(ManualDriveController ${catkin_LIBRARIES} Threads::Threads)
 target_link_libraries(ManualDriveBase ${catkin_LIBRARIES} Threads::Threads)
 
 target_link_libraries(ManualDriveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
