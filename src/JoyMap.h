@@ -26,7 +26,7 @@ namespace JoyMap
     static const int ExcvTrencherExtend = 7; // start
 
     //Start semi Autonomy
-    static const int SemiAutonomyToggle = 0;
+    static const int SemiAutonomyToggle = 0; // A
 
     // Motor Toggle Function
     static const int AugerToggle = 3; // Y

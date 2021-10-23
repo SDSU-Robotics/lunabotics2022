@@ -36,8 +36,9 @@ class Listener
 
         void getLSpeed(const std_msgs::Float32 lspeed);
         void getRSpeed(const std_msgs::Float32 rspeed);
+		
 		void getTwistSpeed(const geometry_msgs::Twist twist);
-		void setMotorOutput(const float left, const float right);
+		void setMotorOutput();
 		void getMotorStatus(const std_msgs::Float32 motor);
 		bool motor_status = 0;
 		float leftPower = 0;
@@ -69,14 +70,14 @@ int main (int argc, char **argv)
 	ros::Subscriber r_drive_sub = n.subscribe("RDrvPwr", 100, &Listener::getRSpeed, &listener);
 	// Right speed of excavator drive power
 
-	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getMotorStatus, &listener);
-
 	ros::Publisher wheelPos = n.advertise<std_msgs::Int32>("WheelPos", 100);
 
 	std_msgs::Int32 pos;
 
 	while (ros::ok())
 	{
+		listener.setMotorOutput();
+
 		pos.data = listener.leftWheel.GetSensorCollection().GetQuadraturePosition();
 		wheelPos.publish(pos);
 		
@@ -108,10 +109,10 @@ void Listener::getTwistSpeed(const geometry_msgs::Twist twist)
 	rightPower = LINEAR_ADJ * twist.linear.x - ANGULAR_ADJ * twist.angular.z;
 }
 
-void Listener::setMotorOutput(const float left, const float right)
+void Listener::setMotorOutput()
 {
-	leftDrive.Set(ControlMode::PercentOutput, left);
-	rightDrive.Set(ControlMode::PercentOutput, right);
+	leftDrive.Set(ControlMode::PercentOutput, leftPower);
+	rightDrive.Set(ControlMode::PercentOutput, rightPower);
 
 	ctre::phoenix::unmanaged::FeedEnable(100);	
 }
