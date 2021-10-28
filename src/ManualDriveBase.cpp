@@ -48,7 +48,7 @@ class Listener
         TalonSRX rightDrive = {DeviceIDs::ExcvDrvRTal};
         TalonSRX leftWheel = {DeviceIDs::TPortDrvLTal};
 
-	};
+};
 
 int main (int argc, char **argv)
 {

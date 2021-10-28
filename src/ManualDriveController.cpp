@@ -1,3 +1,4 @@
+//general includes needed for ROS files
 #include <string>
 #include <unistd.h>
 
@@ -5,26 +6,31 @@
 #include "std_msgs/Float32.h"
 #include <sensor_msgs/Joy.h>
 #include "std_msgs/Bool.h"
+//include to access JoyMap.h file wich stores all the button mapping for Joystick
 #include "JoyMap.h"
 
+//required
 using namespace std;
 
 #define DRIVE_SCALE 1
 
+//class to store functions and data in. Required
 class Listener
 {
+//decalre all functions
 public:
 	void joyListener(const sensor_msgs::Joy::ConstPtr& Joy);
 	void getJoyVals(bool buttons[], double axes[]) const;
 	void augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
 
+//declare array (1)
 private:
     bool _buttons[12] = { 0 };
 	double _axes[6] = { 0 };
 	
 };
 
-
+//function to fill array (1) with Joystick INput
 void Listener::joyListener(const sensor_msgs::Joy::ConstPtr& Joy)
 {
 	for (int i = 0 ; i < 12; i++)
@@ -34,6 +40,7 @@ void Listener::joyListener(const sensor_msgs::Joy::ConstPtr& Joy)
         _axes[i] = Joy->axes[i];
 }
 
+//function to fill array (2) with values from array(1)
 void Listener::getJoyVals(bool buttons[], double axes[]) const
 {
     for (int i = 0; i < 12; i++)
@@ -43,6 +50,7 @@ void Listener::getJoyVals(bool buttons[], double axes[]) const
         axes[i] = _axes[i];
 }
 
+//function to handle button switching for auger motor.
 void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
 {
 	bool prev = current;
@@ -67,39 +75,47 @@ void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Floa
 	}
 }
 
+//function needed by all .cpp files
 int main (int argc, char **argv)
 {
+	//required for ROS to work. The name inside the quotations is the name of this node. Cannot be the same as other node names
     ros::init(argc, argv, "ManualDriveController");
 	ros::NodeHandle n;
 	ros::Rate loop_rate(100);
 
+	//initialize the Listner class to access the function we need. Required
 	Listener listener;
 
+	//listen to any joystick input and call the appropriate listener function accordingly. Required
 	ros::Subscriber joySub = n.subscribe("Excv/joy", 100, &Listener::joyListener, &listener);
 	
+	//create array (2). Required
 	bool buttons[12];
 	double axes[6];
 
-	uint Ybutton = {JoyMap::AugerToggle};
-	bool Ycurrent = 0; // initialized to false
+	//create variables to store button data(whether it is on or not). Duplicate these with different names each time a function is created to handle button switch
+	int Ybutton = {JoyMap::AugerToggle};
+	bool Ycurrent = false; // initialized to false
 	bool Yon = false; // initialized to false
 
+	//get the number corresponding to the joystick's left stick and right stick
 	int Lstick_Yaxis = {JoyMap::LeftDrive};
     int Rstick_Yaxis = {JoyMap::RightDrive};
 
-	// publishers
+	// publishers: one for each message that we are broadcasting. The name within the quations must be unique (this is the TOPIC).
     ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("RDrvPwr", 100);
 	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("LDrvPwr", 100);
 	ros::Publisher motor_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
 	
-	// messages
+	// messages: one for each publisher above. Data type must match that of the publisher
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
 	std_msgs::Float32 motor_toggle_msg;
 	
+	//required for ROS to work
 	while (ros::ok())
 	{
-        // initialize buttons and axes arrays
+        // fill array (2) with values from array (1)
 		listener.getJoyVals(buttons, axes);
 
 		// get controller values
@@ -115,11 +131,13 @@ int main (int argc, char **argv)
 
 		// toggle Y button to turn motor on/off
 		listener.augerToggle(buttons[Ybutton], Ycurrent, Yon, motor_toggle_msg);
+		//publish the motor toggle data
 		motor_toggle_pub.publish(motor_toggle_msg);
 		
+		//required for ROS to work
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
-
+	//required for .cpp to work
 	return 0;
 }
