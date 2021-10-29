@@ -31,14 +31,15 @@ using namespace ctre::phoenix::motorcontrol::can;
 class Listener
 {
     public:
-        void augerSpeed(const std_msgs::Float32 motorSpeed);
+        void getAugerSpeed(const std_msgs::Float32 motorSpeed);
         void setAuger();
         float augerSpeed = 0;
 
         TalonSRX augerDrive = {DeviceIDs::AugerTal};
 };
 
-void Listener::getAugerData(const std_msgs::Float32 motorSpeed){
+void Listener::getAugerSpeed(const std_msgs::Float32 motorSpeed)
+{
     augerSpeed = motorSpeed.data;
 }
 
@@ -59,11 +60,11 @@ int main (int argc, char **argv)
 
     Listener listener;
 
-   	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getAugerData, &listener);
+   	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getAugerSpeed, &listener);
 
     while (ros::ok())
 	{
-        setAuger();
+        listener.setAuger();
 
 		ros::spinOnce();
 		loop_rate.sleep();
