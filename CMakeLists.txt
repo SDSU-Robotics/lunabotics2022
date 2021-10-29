@@ -29,5 +29,10 @@ catkin_package()
 include_directories (src include ${catkin_INCLUDE_DIRS})
 
 
+add_executable(MoveBase ${PROJECT_SOURCE_DIR}/src/MoveBase.cpp)
+target_link_libraries(MoveBase ${catkin_LIBRARIES} Threads::Threads)
 
-
+target_link_libraries(MoveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
+target_link_libraries(MoveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
+target_link_libraries(MoveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
+target_link_libraries(MoveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
