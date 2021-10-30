@@ -16,7 +16,7 @@ class Listener
 public:
 	void joyListener(const sensor_msgs::Joy::ConstPtr& Joy);
 	void getJoyVals(bool buttons[], double axes[]) const;
-	void augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
+	void F32Toggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg); // Float32 message
 
 private:
     bool _buttons[12] = { 0 };
@@ -43,7 +43,7 @@ void Listener::getJoyVals(bool buttons[], double axes[]) const
         axes[i] = _axes[i];
 }
 
-void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
+void Listener::F32Toggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
 {
 	bool prev = current;
 	current = b;
@@ -58,7 +58,6 @@ void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Floa
 	{
 		ROS_INFO("ON");
 		msg.data = 1;
-
 	}
 	else
 	{
@@ -80,9 +79,13 @@ int main (int argc, char **argv)
 	bool buttons[12];
 	double axes[6];
 
-	uint Ybutton = {JoyMap::AugerToggle};
-	bool Ycurrent = 0; // initialized to false
-	bool Yon = false; // initialized to false
+	uint auger = {JoyMap::AugerToggle};
+	bool augerCurrent = false; // initialized to false
+	bool augerOn = false; // initialized to false
+
+	uint linAct = {JoyMap::LinActToggle};
+	bool linActCurrent = false; // initialized to false
+	bool linActOn = false; // initialized to false
 
 	int Lstick_Yaxis = {JoyMap::LeftDrive};
     int Rstick_Yaxis = {JoyMap::RightDrive};
@@ -90,12 +93,14 @@ int main (int argc, char **argv)
 	// publishers
     ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("RDrvPwr", 100);
 	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("LDrvPwr", 100);
-	ros::Publisher motor_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
+	ros::Publisher auger_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
+	ros::Publisher lin_act_toggle_pub = n.advertise<std_msgs::Float32>("LinActToggle", 100);
 	
 	// messages
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
-	std_msgs::Float32 motor_toggle_msg;
+	std_msgs::Float32 auger_toggle_msg;
+	std_msgs::Float32 lin_act_toggle_msg;
 	
 	while (ros::ok())
 	{
@@ -113,9 +118,13 @@ int main (int argc, char **argv)
 		l_drive_pub.publish(l_speed_msg);
 		r_drive_pub.publish(r_speed_msg);
 
-		// toggle Y button to turn motor on/off
-		listener.augerToggle(buttons[Ybutton], Ycurrent, Yon, motor_toggle_msg);
-		motor_toggle_pub.publish(motor_toggle_msg);
+		// toggle Y button to turn auger motor on/off
+		listener.F32Toggle(buttons[auger], augerCurrent, augerOn, auger_toggle_msg);
+		auger_toggle_pub.publish(auger_toggle_msg);
+
+		// toggle A button to toggle linear actuator
+		listener.F32Toggle(buttons[linAct], linActCurrent, linActOn, lin_act_toggle_msg);
+		lin_act_toggle_pub.publish(lin_act_toggle_msg);
 		
 		ros::spinOnce();
 		loop_rate.sleep();
