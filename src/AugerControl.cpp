@@ -18,6 +18,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 #define LINEAR_ADJ 1
 #define ANGULAR_ADJ 1
+#define DRIVE_SCALE 0.25 // 25%
 
 /*******************************************************************************
 ****     This node subscribes to the motor values set in ExcvLDrvPwr and 	****
@@ -40,7 +41,7 @@ class Listener
 
 void Listener::getAugerSpeed(const std_msgs::Float32 motorSpeed)
 {
-    augerSpeed = motorSpeed.data;
+    augerSpeed = motorSpeed.data * DRIVE_SCALE;
 }
 
 void Listener::setAuger()
