@@ -47,7 +47,7 @@
 	
   <!-- Initial Pose and Goal Publisher -->
   <!-- Publish: /initialpose, /move_base_simple/goal -->
-  <node pkg="rviz" type="rviz" name="rviz" args="-d /catkin_ws/src/lunabotics2022/maps/floorplan4.rviz">
+  <node pkg="rviz" type="rviz" name="rviz">
   </node> 
 
   <!-- Subscribe: /initialpose, /move_base_simple/goal -->
@@ -68,7 +68,7 @@
   </node>  
 
   <!-- Map File -->
-  <arg name="map_file" default="maps/floorplan4.yaml"/>
+  <arg name="map_file" default="$(find lunabotics2022)maps/pitmap.yaml"/>
 	
   <!-- Map Server -->
   <!-- Publish: /map, /map_metadata -->
