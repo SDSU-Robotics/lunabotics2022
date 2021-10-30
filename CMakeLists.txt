@@ -30,7 +30,12 @@ include_directories (src include ${catkin_INCLUDE_DIRS})
 
 
 add_executable(MoveBase ${PROJECT_SOURCE_DIR}/src/MoveBase.cpp)
+add_executable(Odometry ${PROJECT_SOURCE_DIR}/src/Odometry.cpp)
+add_executable(rviz_click_to_2d ${PROJECT_SOURCE_DIR}/src/rviz_click_to_2d.cpp)
+
 target_link_libraries(MoveBase ${catkin_LIBRARIES} Threads::Threads)
+target_link_libraries(Odometry ${catkin_LIBRARIES} Threads::Threads)
+target_link_libraries(rviz_click_to_2d ${catkin_LIBRARIES} Threads::Threads)
 
 target_link_libraries(MoveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
 target_link_libraries(MoveBase ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)

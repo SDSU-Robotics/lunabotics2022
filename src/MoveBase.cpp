@@ -74,11 +74,23 @@ int main (int argc, char **argv)
     //getTwistSpeed(const geometry_msgs::Twist twist). This is defined above inside the listener class
     ros::Subscriber twistMsg = n.subscribe("cmd_vel", 100, &Listener::getTwistSpeed, &listener);
 
+    std_msgs::Int32 leftPos;
+    std_msgs::Int32 rightPos;
+
+    ros::Publisher leftTick = n.advertise<std_msgs::Int32>("left_ticks", 100);
+    ros::Publisher rightTick = n.advertise<std_msgs::Int32>("right_ticks", 100);
+
     //run this block of code as long as ROS is running
     while (ros::ok())
     {
         //call the function to send power to the motor controllers
         listener.setMotorOutput();
+
+        leftPos.data = listener.leftDrive.GetSensorCollection().GetQuadraturePosition();
+        rightPos.data = listener.rightDrive.GetSensorCollection().GetQuadraturePosition();
+
+        leftTick.publish(leftPos);
+        rightTick.publish(rightPos);
 
         //needed for ROS to work properly
         ros::spinOnce();
