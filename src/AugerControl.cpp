@@ -18,6 +18,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 #define LINEAR_ADJ 1
 #define ANGULAR_ADJ 1
+#define DRIVE_SCALE 0.25 // 25%
 
 /*******************************************************************************
 ****     This node subscribes to the motor values set in ExcvLDrvPwr and 	****
@@ -31,15 +32,16 @@ using namespace ctre::phoenix::motorcontrol::can;
 class Listener
 {
     public:
-        void augerSpeed(const std_msgs::Float32 motorSpeed);
+        void getAugerSpeed(const std_msgs::Float32 motorSpeed);
         void setAuger();
         float augerSpeed = 0;
 
         TalonSRX augerDrive = {DeviceIDs::AugerTal};
 };
 
-void Listener::getAugerData(const std_msgs::Float32 motorSpeed){
-    augerSpeed = motorSpeed.data;
+void Listener::getAugerSpeed(const std_msgs::Float32 motorSpeed)
+{
+    augerSpeed = motorSpeed.data * DRIVE_SCALE;
 }
 
 void Listener::setAuger()
@@ -59,11 +61,11 @@ int main (int argc, char **argv)
 
     Listener listener;
 
-   	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getAugerData, &listener);
+   	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getAugerSpeed, &listener);
 
     while (ros::ok())
 	{
-        setAuger();
+        listener.setAuger();
 
 		ros::spinOnce();
 		loop_rate.sleep();

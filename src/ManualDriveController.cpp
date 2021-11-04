@@ -21,7 +21,12 @@ class Listener
 public:
 	void joyListener(const sensor_msgs::Joy::ConstPtr& Joy);
 	void getJoyVals(bool buttons[], double axes[]) const;
-	void augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
+	void F32Toggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
+	void ToggleAugerSpeed(const bool down, const bool up, bool &currentButton4, bool &currentButton5, std_msgs::Float32 &message);
+
+	double stepSize = 0.1;
+	double maxSpeed = 1;
+	double minSpeed = -1;
 
 //declare array (1)
 private:
@@ -50,8 +55,7 @@ void Listener::getJoyVals(bool buttons[], double axes[]) const
         axes[i] = _axes[i];
 }
 
-//function to handle button switching for auger motor.
-void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
+void Listener::F32Toggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg)
 {
 	bool prev = current;
 	current = b;
@@ -66,7 +70,6 @@ void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Floa
 	{
 		ROS_INFO("ON");
 		msg.data = 1;
-
 	}
 	else
 	{
@@ -74,6 +77,39 @@ void Listener::augerToggle(const bool b, bool &current, bool &on, std_msgs::Floa
 		msg.data = 0;
 	}
 }
+
+void Listener::ToggleAugerSpeed(const bool down, const bool up, bool &currentButton4, bool &currentButton5, std_msgs::Float32 &message)
+{
+
+	bool lastButton4;
+	bool lastButton5; 
+	//gets the last state of the buttons
+	lastButton4 = currentButton4;
+	lastButton5 = currentButton5;
+	//sets the last state of the button to the current state of the button
+	currentButton5 = up;
+	currentButton4 = down;
+	// sets the boolean value of current value to the value in keys
+
+	if (lastButton5 && !currentButton5)
+	{
+		if (message.data < maxSpeed)
+			message.data = message.data + stepSize;
+		
+		else if(message.data >= maxSpeed)
+			message.data = maxSpeed;
+		
+	}
+	else if (lastButton4 && !currentButton4)
+	{
+		if (message.data > minSpeed)
+			message.data = message.data - stepSize;
+		
+		else if (message.data <= minSpeed)
+			message.data = minSpeed;
+		
+	}
+} 
 
 //function needed by all .cpp files
 int main (int argc, char **argv)
@@ -93,10 +129,14 @@ int main (int argc, char **argv)
 	bool buttons[12];
 	double axes[6];
 
-	//create variables to store button data(whether it is on or not). Duplicate these with different names each time a function is created to handle button switch
-	int Ybutton = {JoyMap::AugerToggle};
-	bool Ycurrent = false; // initialized to false
-	bool Yon = false; // initialized to false
+	int augerUp = {JoyMap::AugerToggleUp};
+	int augerDown = {JoyMap::AugerToggleDown};
+	bool augerCurrent = false; // initialized to false
+	bool augerOn = false; // initialized to false
+
+	int linAct = {JoyMap::LinActToggle};
+	bool linActCurrent = false; // initialized to false
+	bool linActOn = false; // initialized to false
 
 	//get the number corresponding to the joystick's left stick and right stick
 	int Lstick_Yaxis = {JoyMap::LeftDrive};
@@ -105,12 +145,14 @@ int main (int argc, char **argv)
 	// publishers: one for each message that we are broadcasting. The name within the quations must be unique (this is the TOPIC).
     ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("RDrvPwr", 100);
 	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("LDrvPwr", 100);
-	ros::Publisher motor_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
+	ros::Publisher auger_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
+	ros::Publisher lin_act_toggle_pub = n.advertise<std_msgs::Float32>("LinActToggle", 100);
 	
 	// messages: one for each publisher above. Data type must match that of the publisher
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
-	std_msgs::Float32 motor_toggle_msg;
+	std_msgs::Float32 auger_toggle_msg;
+	std_msgs::Float32 lin_act_toggle_msg;
 	
 	//required for ROS to work
 	while (ros::ok())
@@ -129,10 +171,14 @@ int main (int argc, char **argv)
 		l_drive_pub.publish(l_speed_msg);
 		r_drive_pub.publish(r_speed_msg);
 
-		// toggle Y button to turn motor on/off
-		listener.augerToggle(buttons[Ybutton], Ycurrent, Yon, motor_toggle_msg);
-		//publish the motor toggle data
-		motor_toggle_pub.publish(motor_toggle_msg);
+		// toggle Y button to turn auger motor on/off
+		//listener.F32Toggle(buttons[auger], augerCurrent, augerOn, auger_toggle_msg);
+		listener.ToggleAugerSpeed(buttons[augerDown], buttons[augerUp], augerCurrent, augerOn, auger_toggle_msg);
+		auger_toggle_pub.publish(auger_toggle_msg);
+
+		// toggle A button to toggle linear actuator
+		listener.F32Toggle(buttons[linAct], linActCurrent, linActOn, lin_act_toggle_msg);
+		lin_act_toggle_pub.publish(lin_act_toggle_msg);
 		
 		//required for ROS to work
 		ros::spinOnce();
