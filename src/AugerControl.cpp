@@ -67,6 +67,11 @@ int main (int argc, char **argv)
 	{
         listener.setAuger();
 
+        int augerSpeed = listener.augerDrive.GetSensorCollection().GetQuadratureVelocity();
+		string mssg = to_string(augerSpeed);
+
+		ROS_INFO_STREAM("Msg: " << mssg);
+
 		ros::spinOnce();
 		loop_rate.sleep();
     }
