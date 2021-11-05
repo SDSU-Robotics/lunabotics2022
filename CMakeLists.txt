@@ -34,3 +34,10 @@ target_link_libraries(TestPublisher ${catkin_LIBRARIES} )
 add_executable(TestSubscriber ${PROJECT_SOURCE_DIR}/src/TestSubscriber.cpp)
 
 target_link_libraries(TestSubscriber ${catkin_LIBRARIES} )
+add_executable(TestSub ${PROJECT_SOURCE_DIR}/src/TestSub.cpp)
+
+target_link_libraries(TestSub ${catkin_LIBRARIES} Threads::Threads)
+
+add_executable(TestPub ${PROJECT_SOURCE_DIR}/src/TestPub.cpp)
+
+target_link_libraries(TestPub ${catkin_LIBRARIES} Threads::Threads)
