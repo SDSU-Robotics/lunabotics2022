@@ -62,7 +62,7 @@ int main()
             }
 
             Btime = clock();
-            for ( ;; )
+            for (;;)
             {
                 Excavation();
                 if (GetAsyncKeyState(VK_END)) // End(back)
@@ -78,7 +78,7 @@ int main()
             }
 
             Ctime = clock();
-            for ( ;;)
+            for (;;)
             {
                 Return();
 
@@ -96,8 +96,5 @@ int main()
         }
 
     }
-
-
-
     return 0;
 }

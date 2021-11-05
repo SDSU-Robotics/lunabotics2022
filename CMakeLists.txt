@@ -27,11 +27,10 @@ catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
 
-add_executable(Michaelpublisher ${PROJECT_SOURCE_DIR}/src/Michaelpublisher.cpp)
+add_executable(TestPublisher ${PROJECT_SOURCE_DIR}/src/TestPublisher.cpp)
 
-target_link_libraries(Michaelpublisher ${catkin_LIBRARIES})
+target_link_libraries(TestPublisher ${catkin_LIBRARIES} )
 
+add_executable(TestSubscriber ${PROJECT_SOURCE_DIR}/src/TestSubscriber.cpp)
 
-add_executable(Autonomy ${PROJECT_SOURCE_DIR}/src/Autonomy 10-09.cpp)
-
-target_link_libraries(Autonomy ${catkin_LIBRARIES})
+target_link_libraries(TestSubscriber ${catkin_LIBRARIES} )
