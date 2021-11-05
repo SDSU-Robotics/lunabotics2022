@@ -18,7 +18,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 #define LINEAR_ADJ 1
 #define ANGULAR_ADJ 1
-#define DRIVE_SCALE 0.25 // 25%
+#define DRIVE_SCALE 1 // 25%
 
 /*******************************************************************************
 ****     This node subscribes to the motor values set in ExcvLDrvPwr and 	****
@@ -53,7 +53,7 @@ void Listener::setAuger()
 
 int main (int argc, char **argv)
 {
-    ros::init(argc, argv, "ManualDriveBase");
+    ros::init(argc, argv, "AugerControl");
 	ros::NodeHandle n;
 	ros::Rate loop_rate(100);
 

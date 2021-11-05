@@ -8,7 +8,7 @@
 
     <node pkg="lunabotics2022" type="ManualDriveController" name="ManualDriveController" />
     <node pkg="lunabotics2022" type="ManualDriveBase" name="ManualDriveBase" />
-    <node pkg="lunabotics2022" type="AugerControl" name="AugerControl" />
+    <!--node pkg="lunabotics2022" type="AugerControl" name="AugerControl" /-->
 
 
 </launch>
