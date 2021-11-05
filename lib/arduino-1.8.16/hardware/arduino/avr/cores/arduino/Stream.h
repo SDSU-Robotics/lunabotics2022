@@ -23,7 +23,7 @@
 #define Stream_h
 
 #include <inttypes.h>
-#include "Print.h"
+#include "arduino-1.8.16/hardware/arduino/avr/cores/arduino/Print.h"
 
 // compatability macros for testing
 /*
