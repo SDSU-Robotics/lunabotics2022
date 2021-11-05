@@ -35,6 +35,7 @@ class Listener
         void getAugerSpeed(const std_msgs::Float32 motorSpeed);
         void setAuger();
         float augerSpeed = 0;
+        float gearRatio = 80;
 
         TalonSRX augerDrive = {DeviceIDs::AugerTal};
 };
@@ -68,7 +69,8 @@ int main (int argc, char **argv)
         listener.setAuger();
 
         int augerSpeed = listener.augerDrive.GetSensorCollection().GetQuadratureVelocity();
-		string mssg = to_string(augerSpeed);
+        int shaftRPM = 0.3*(augerSpeed/listener.gearRatio);
+		string mssg = to_string(shaftRPM);
 
 		ROS_INFO_STREAM("Msg: " << mssg);
 
