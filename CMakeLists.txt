@@ -27,17 +27,13 @@ catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
 
-add_executable(TestPublisher ${PROJECT_SOURCE_DIR}/src/TestPublisher.cpp)
+add_executable(AugControl ${PROJECT_SOURCE_DIR}/src/AugControl.cpp)
 
-target_link_libraries(TestPublisher ${catkin_LIBRARIES} )
+target_link_libraries(AugControl ${catkin_LIBRARIES} Threads::Threads)
 
-add_executable(TestSubscriber ${PROJECT_SOURCE_DIR}/src/TestSubscriber.cpp)
 
-target_link_libraries(TestSubscriber ${catkin_LIBRARIES} )
-add_executable(TestSub ${PROJECT_SOURCE_DIR}/src/TestSub.cpp)
+target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
+target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
+target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
+target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
 
-target_link_libraries(TestSub ${catkin_LIBRARIES} Threads::Threads)
-
-add_executable(TestPub ${PROJECT_SOURCE_DIR}/src/TestPub.cpp)
-
-target_link_libraries(TestPub ${catkin_LIBRARIES} Threads::Threads)
