@@ -46,7 +46,6 @@ class Listener
 		
         TalonSRX leftDrive = {DeviceIDs::ExcvDrvLTal};
         TalonSRX rightDrive = {DeviceIDs::ExcvDrvRTal};
-        TalonSRX leftWheel = {DeviceIDs::TPortDrvLTal};
 
 };
 
@@ -77,9 +76,6 @@ int main (int argc, char **argv)
 	while (ros::ok())
 	{
 		listener.setMotorOutput();
-
-		pos.data = listener.leftWheel.GetSensorCollection().GetQuadraturePosition();
-		wheelPos.publish(pos);
 		
 		ros::spinOnce();
 		loop_rate.sleep();
