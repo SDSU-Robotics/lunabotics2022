@@ -5,10 +5,8 @@ namespace DeviceIDs
 {
     static const int ExcvDrvLTal = 10; //****
     static const int ExcvDrvRTal = 11; //****
-    static const int AugerTal = 12;
+    static const int AugerTal = 3;
     static const int canifier = 16;
-
-    static const int TPortDrvLTal = 21;
 
 
 };

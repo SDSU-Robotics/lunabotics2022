@@ -1,5 +1,6 @@
 global_costmap:
   global_frame: odom
+  origin: [-5,-5, 0.000000]
   update_frequency: 30.0
   publish_frequency: 30.0
   transform_tolerance: 0.2
