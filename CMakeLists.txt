@@ -31,6 +31,10 @@ add_executable(AugControl ${PROJECT_SOURCE_DIR}/src/AugControl.cpp)
 
 target_link_libraries(AugControl ${catkin_LIBRARIES} Threads::Threads)
 
+add_executable(AugPub ${PROJECT_SOURCE_DIR}/src/AugPub.cpp)
+
+target_link_libraries(AugPub ${catkin_LIBRARIES} Threads::Threads)
+
 
 target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
 target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)

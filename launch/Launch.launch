@@ -1,0 +1,8 @@
+<launch>
+
+    <node pkg="lunabotics2022" type="AugControl" name="AugControl" />
+    <node pkg="lunabotics2022" type="AugPub" name="AugPub" />
+    <!--node pkg="lunabotics2022" type="AugerControl" name="AugerControl" /-->
+
+
+</launch>
