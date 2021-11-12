@@ -85,13 +85,13 @@ def draw_point(event,x,y,flags,param):
         # Show the image in a new window
         #  Open a file
       #prompt = '> '
-      print("What is the name of the new map?")
+      #print("What is the name of the new map?")
       mapName = ('pitmap')
  
     #  prompt = '> '
-      print("Where is the desired location of the map and yaml file?") 
-      print("NOTE: if this program is not run on the TurtleBot, Please input the file location of where the map should be saved on TurtleBot. The file will be saved at that location on this computer. Please then tranfer the files to TurtleBot.")
-      mapLocation = ('/home/robotics/catkin_ws/src/lunabotics2022/maps')
+     # print("Where is the desired location of the map and yaml file?") 
+      # print("NOTE: if this program is not run on the TurtleBot, Please input the file location of where the map should be saved on TurtleBot. The file will be saved at that location on this computer. Please then tranfer the files to TurtleBot.")
+      mapLocation = ('/home/ubuntu/catkin_ws/src/lunabotics2022/maps')
       completeFileNameMap = os.path.join(mapLocation, mapName +".pgm")
       completeFileNameYaml = os.path.join(mapLocation, mapName +".yaml")
       yaml = open(completeFileNameYaml, "w")

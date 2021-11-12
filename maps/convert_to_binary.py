@@ -1,7 +1,7 @@
 import cv2 # Import OpenCV
    
 # read the image file
-img = cv2.imread('pit.png')
+img = cv2.imread('pitpit1.png')
    
 ret, bw_img = cv2.threshold(img, 220, 255, cv2.THRESH_BINARY)
    
