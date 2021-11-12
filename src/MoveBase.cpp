@@ -16,6 +16,8 @@ using namespace ctre::phoenix::platform;
 using namespace ctre::phoenix::motorcontrol;
 using namespace ctre::phoenix::motorcontrol::can;
 
+#define Drive_SCALE 0.5
+
 //class to store variables and functions
 class Listener
 {
@@ -43,8 +45,8 @@ Listener::Listener()
 //function to use the data published by nav_stack and convert the data to motor input, then store the data
 void Listener::getTwistSpeed(const geometry_msgs::Twist twist)
 {
-    leftPower = 1 * twist.linear.x + 1 * twist.angular.z;
-    rightPower = 1 * twist.linear.x - 1 * twist.angular.z;
+    leftPower = Drive_SCALE * twist.linear.x + Drive_SCALE * twist.angular.z;
+    rightPower = Drive_SCALE * twist.linear.x - Drive_SCALE * twist.angular.z;
 }
 
 //function to send motor data to the motors
