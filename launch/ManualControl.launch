@@ -11,4 +11,13 @@
     <!--node pkg="lunabotics2022" type="AugerControl" name="AugerControl" /-->
 
 
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="1920" />
+    <param name="image_height" value="1080" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="head_camera" />
+    <param name="io_method" value="mmap"/>
+  </node>
+
 </launch>
