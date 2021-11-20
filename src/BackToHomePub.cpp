@@ -9,7 +9,6 @@
 #include "ctre/phoenix/motorcontrol/SensorCollection.h"
 #include <iostream>
 #include <string>
-#include <time.h>
 
 using namespace std;
 using namespace ctre::phoenix;
@@ -19,33 +18,24 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 int main(int argc, char**argv)
 {
-    double pain = 0.0, hurt = 0.0, status = 0.0;
-    ros::init(argc, argv, "AugerCont");
+    ros::init(argc, argv, "ManDrivingBase");
         ros::NodeHandle n;
         ros::Rate loop_rate(69);
 
-        ros::Publisher Testpath = n.advertise<std_msgs::Float32>("AugerToggle", 69);
+        ros::Publisher Testpath = n.advertise<std_msgs::Float32>("LDrvPwr", 69);
+        ros::Publisher Testpath = n.advertise<std_msgs::Float32>("RDrvPwr", 69);
 
-        std_msgs::Float32 AugTask;
+        std_msgs::Float32 BackDrive;
 
     while(ros::ok())
     {
-        Testpath.publish(AugTask);
+        Testpath.publish(BackDrive);
         
         ros::spinOnce();
         loop_rate.sleep();
 
-        if (status == 0)
-        AugTask.data = .3;
-        if (status == 1)
-        AugTask.data = -.3;
-        pain++;
-        if (pain > 600)
-            pain = 0;
-        if (pain == 0)
-            status = 0;
-        if (pain == 300)
-            status = 1;
+        BackDrive.data = 0;
+        
     }
     return 0;
 }

@@ -68,7 +68,7 @@ int main (int argc, char **argv)
 	{
         listener.setAuger();
 
-        int augerSpeed = listener.augerDrive.GetSensorCollection().GetQuadratureVelocity();
+        int augerSpeed = listener.augerDrive.GetSensorCollection().GetQuadraturePosition();
         int shaftRPM = 0.3*(augerSpeed/listener.gearRatio);
 		string mssg = to_string(shaftRPM);
 

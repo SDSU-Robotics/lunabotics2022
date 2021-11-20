@@ -1,0 +1,6 @@
+<launch>
+
+    <node pkg="lunabotics2022" type="ActuatorControl" name="ActuatorControl" />
+    <node pkg="lunabotics2022" type="ActuatorPub" name="ActuatorPub" />
+
+</launch>

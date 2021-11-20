@@ -35,9 +35,34 @@ add_executable(AugPub ${PROJECT_SOURCE_DIR}/src/AugPub.cpp)
 
 target_link_libraries(AugPub ${catkin_LIBRARIES} Threads::Threads)
 
+add_executable(ActuatorControl ${PROJECT_SOURCE_DIR}/src/ActuatorControl.cpp)
+
+target_link_libraries(ActuatorControl ${catkin_LIBRARIES} Threads::Threads)
+
+add_executable(ActuatorPub ${PROJECT_SOURCE_DIR}/src/ActuatorPub.cpp)
+
+target_link_libraries(ActuatorPub ${catkin_LIBRARIES} Threads::Threads)
+
+add_executable(BackToHomeControl ${PROJECT_SOURCE_DIR}/src/BackToHomeControl.cpp)
+
+target_link_libraries(BackToHomeControl ${catkin_LIBRARIES} Threads::Threads)
+
+add_executable(BackToHomePub ${PROJECT_SOURCE_DIR}/src/BackToHomePub.cpp)
+
+target_link_libraries(BackToHomePub ${catkin_LIBRARIES} Threads::Threads)
+
 
 target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
 target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
 target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
 target_link_libraries(AugControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
 
+target_link_libraries(ActuatorControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
+target_link_libraries(ActuatorControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
+target_link_libraries(ActuatorControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
+target_link_libraries(ActuatorControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
+
+target_link_libraries(BackToHomeControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
+target_link_libraries(BackToHomeControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
+target_link_libraries(BackToHomeControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
+target_link_libraries(BackToHomeControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
