@@ -37,12 +37,12 @@ class Listener
         void getLSpeed(const std_msgs::Float32 lspeed);
         void getRSpeed(const std_msgs::Float32 rspeed);
 		
-		void getTwistSpeed(const geometry_msgs::Twist twist);
 		void setMotorOutput();
 		void getMotorStatus(const std_msgs::Float32 motor);
 		bool motor_status = 0;
 		float leftPower = 0;
 		float rightPower = 0;
+		int targetPos = 1000;
 		
         TalonSRX leftDrive = {DeviceIDs::ExcvDrvLTal};
         TalonSRX rightDrive = {DeviceIDs::ExcvDrvRTal};
@@ -99,17 +99,11 @@ void Listener::getRSpeed(const std_msgs::Float32 rspeed)
 	rightPower = rspeed.data;
 }
 
-void Listener::getTwistSpeed(const geometry_msgs::Twist twist)
-{
-	leftPower = LINEAR_ADJ * twist.linear.x + ANGULAR_ADJ * twist.angular.z;
-	rightPower = LINEAR_ADJ * twist.linear.x - ANGULAR_ADJ * twist.angular.z;
-}
-
 void Listener::setMotorOutput()
 {
 	leftDrive.Set(ControlMode::PercentOutput, leftPower);
 	rightDrive.Set(ControlMode::PercentOutput, rightPower);
-
+	
 	ctre::phoenix::unmanaged::FeedEnable(100);	
 }
 
