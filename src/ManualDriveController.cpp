@@ -4,6 +4,7 @@
 
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
+#include "std_msgs/UInt16.h"
 #include <sensor_msgs/Joy.h>
 #include "std_msgs/Bool.h"
 //include to access JoyMap.h file wich stores all the button mapping for Joystick
@@ -23,7 +24,7 @@ public:
 	void getJoyVals(bool buttons[], double axes[]) const;
 	void F32Toggle(const bool b, bool &current, bool &on, std_msgs::Float32 &msg);
 	void ToggleAugerSpeed(const bool down, const bool up, bool &currentButton4, bool &currentButton5, std_msgs::Float32 &message);
-
+	void toggleServo(const bool b, bool &current, bool &on, std_msgs::UInt16 &msg);
 	double stepSize = 0.1;
 	double maxSpeed = 1;
 	double minSpeed = -1;
@@ -78,6 +79,29 @@ void Listener::F32Toggle(const bool b, bool &current, bool &on, std_msgs::Float3
 	}
 }
 
+void Listener::toggleServo(const bool b, bool &current, bool &on, std_msgs::UInt16 &msg)
+{
+	bool prev = current;
+	current = b;
+
+	if (prev && !current)
+	{
+		on = !on;
+		ROS_INFO("PRESSED");
+	}
+		
+	if (on)
+	{
+		ROS_INFO("ON");
+		msg.data = 180;
+	}
+	else
+	{
+		ROS_INFO("OFF");
+		msg.data = 0;
+	}
+}
+
 void Listener::ToggleAugerSpeed(const bool down, const bool up, bool &currentButton4, bool &currentButton5, std_msgs::Float32 &message)
 {
 
@@ -111,6 +135,7 @@ void Listener::ToggleAugerSpeed(const bool down, const bool up, bool &currentBut
 	}
 } 
 
+
 //function needed by all .cpp files
 int main (int argc, char **argv)
 {
@@ -138,6 +163,10 @@ int main (int argc, char **argv)
 	bool linActCurrent = false; // initialized to false
 	bool linActOn = false; // initialized to false
 
+	int servo = {JoyMap::Servo};
+	bool servoCurrent = false;
+	bool servoOn = false;
+
 	//get the number corresponding to the joystick's left stick and right stick
 	int Lstick_Yaxis = {JoyMap::LeftDrive};
     int Rstick_Yaxis = {JoyMap::RightDrive};
@@ -147,12 +176,14 @@ int main (int argc, char **argv)
 	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("LDrvPwr", 100);
 	ros::Publisher auger_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
 	ros::Publisher lin_act_toggle_pub = n.advertise<std_msgs::Float32>("LinActToggle", 100);
+	ros::Publisher servo_toggle_pub = n.advertise<std_msgs::UInt16>("ServoToggle", 100);
 	
 	// messages: one for each publisher above. Data type must match that of the publisher
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
 	std_msgs::Float32 auger_toggle_msg;
 	std_msgs::Float32 lin_act_toggle_msg;
+	std_msgs::UInt16 servo_toggle_msg;
 	
 	//required for ROS to work
 	while (ros::ok())
@@ -179,6 +210,10 @@ int main (int argc, char **argv)
 		// toggle A button to toggle linear actuator
 		listener.F32Toggle(buttons[linAct], linActCurrent, linActOn, lin_act_toggle_msg);
 		lin_act_toggle_pub.publish(lin_act_toggle_msg);
+
+		// toggle B button to toggle servo
+		listener.toggleServo(buttons[servo], servoCurrent, servoOn, servo_toggle_msg);
+		servo_toggle_pub.publish(servo_toggle_msg);
 		
 		//required for ROS to work
 		ros::spinOnce();
