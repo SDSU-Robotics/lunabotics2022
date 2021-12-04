@@ -18,7 +18,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 #define LINEAR_ADJ 1
 #define ANGULAR_ADJ 1
-#define DRIVE_SCALE 0.25 // 25%
+#define DRIVE_SCALE 1 // 25%
 
 /*******************************************************************************
 ****     This node subscribes to the motor values set in ExcvLDrvPwr and 	****
@@ -35,6 +35,7 @@ class Listener
         void getAugerSpeed(const std_msgs::Float32 motorSpeed);
         void setAuger();
         float augerSpeed = 0;
+        float gearRatio = 80;
 
         TalonSRX augerDrive = {DeviceIDs::AugerTal};
 };
@@ -53,7 +54,7 @@ void Listener::setAuger()
 
 int main (int argc, char **argv)
 {
-    ros::init(argc, argv, "ManualDriveBase");
+    ros::init(argc, argv, "AugerControl");
 	ros::NodeHandle n;
 	ros::Rate loop_rate(100);
 
@@ -68,7 +69,8 @@ int main (int argc, char **argv)
         listener.setAuger();
 
         int augerSpeed = listener.augerDrive.GetSensorCollection().GetQuadratureVelocity();
-		string mssg = to_string(augerSpeed);
+        int shaftRPM = 0.3*(augerSpeed/listener.gearRatio);
+		string mssg = to_string(shaftRPM);
 
 		ROS_INFO_STREAM("Msg: " << mssg);
 
