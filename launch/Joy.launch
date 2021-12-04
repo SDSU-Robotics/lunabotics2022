@@ -1,0 +1,10 @@
+<launch>
+    <node respawn="true" pkg="joy" type="joy_node" name="ExcvJoyNode" >
+		<param name="dev" type="string" value="/dev/input/js0" />
+		<param name="deadzone" value="0.05" />
+        <remap from="/joy" to="/Excv/joy" />
+	</node>
+  
+    <node pkg="lunabotics2022" type="ManualDriveController" name="ManualDriveController" />
+
+</launch>
