@@ -32,3 +32,6 @@ target_link_libraries(Izaktalker ${catkin_LIBRARIES} Threads::Threads)
 
 add_executable(Izaklistener ${PROJECT_SOURCE_DIR}/src/Izaklistener.cpp)
 target_link_libraries(Izaklistener ${catkin_LIBRARIES} Threads::Threads)
+
+add_executable(LEDToggle ${PROJECT_SOURCE_DIR}/src/LEDToggle)
+target_link_libraries(LEDToggle ${catkin_LIBRARIES} Threads::Threads)
