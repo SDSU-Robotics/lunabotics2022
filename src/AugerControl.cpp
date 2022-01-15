@@ -63,6 +63,9 @@ int main (int argc, char **argv)
 
    	ros::Subscriber motor_toggle_sub = n.subscribe("AugerToggle", 100, &Listener::getAugerSpeed, &listener);
 
+    std_msgs::Float32 motorCurrent;
+    ros::Publisher motorCurrentPub = n.advertise<std_msgs::Float32>("AugerCurrent", 100);
+
     while (ros::ok())
 	{
         listener.setAuger();
@@ -71,6 +74,9 @@ int main (int argc, char **argv)
 		string mssg = to_string(augerSpeed);
 
 		ROS_INFO_STREAM("Msg: " << mssg);
+
+        motorCurrent.data = listener.augerDrive.GetOutputCurrent();
+        motorCurrentPub.publish(motorCurrent);
 
 		ros::spinOnce();
 		loop_rate.sleep();
