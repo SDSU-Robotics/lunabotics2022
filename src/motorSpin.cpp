@@ -21,6 +21,13 @@ TalonSRX motor = {DeviceIDs::motor};
 
 
 
+void SpinMotor ()
+{
+    motor.Set(ControlMode::PercentOutput, 1);
+
+    ctre::phoenix::unmanaged::FeedEnable(100);
+
+}
 
 
 int main (int argc, char **argv)
@@ -42,10 +49,3 @@ int main (int argc, char **argv)
 
 }
 
-void SpinMotor ()
-{
-    motor.Set(ControlMode::PercentOutput, 1);
-
-    ctre::phoenix::unmanaged::FeedEnable(100);
-
-}
