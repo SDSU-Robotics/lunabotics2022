@@ -81,7 +81,7 @@ int main (int argc, char **argv)
 
     while(ros::ok())
     {
-        bool toggleData = Toggle(buttons[toggleButton], buttonCurrent, buttonPress);
+        int toggleData = Toggle(buttons[toggleButton], buttonCurrent, buttonPress);
 
         SpinMotor(toggleData);
 
