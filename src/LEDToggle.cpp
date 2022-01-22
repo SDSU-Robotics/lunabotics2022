@@ -13,30 +13,31 @@ double axes[6] = { 0 };
 
 void JoyListener(const sensor_msgs::Joy::ConstPtr& Joy)
 {
-    for (int i = 0 ; i < 12; i++)
+    for (int i = 0 ; i < 12; i++)   
         buttons[i] = Joy->buttons[i];
-
-    for (int i = 0 ; i < 6; i++)
+    
+    for (int i = 0 ; i < 12; i++)
         axes[i] = Joy->axes[i];
+
 }
 
 bool Toggle(const bool b, bool &current, bool &on)
 {
     bool toggleData;
-
     bool prev = current;
     current = b;
 
     if (prev && !current)
         on = !on;
-    
+
     if (on)
         toggleData = true;
-    
-    else 
+
+    else
         toggleData = false;
 
     return toggleData;
+
 }
 
 int main (int argc, char **argv)
@@ -52,7 +53,7 @@ int main (int argc, char **argv)
     bool buttonPress = false;
 
     std_msgs::Bool ledToggleData;
-    ros::Publisher ledTogglePub = n.advertise<std_msgs::Bool>("LEDToggle",100);
+    ros::Publisher ledTogglePub = n.advertise<std_msgs::Bool>("LEDToggle", 100);
 
     while(ros::ok())
     {
@@ -61,7 +62,7 @@ int main (int argc, char **argv)
 
         ros::spinOnce();
         loop_rate.sleep();
-
+    
     }
 
     return 0;
