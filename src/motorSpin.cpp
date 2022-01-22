@@ -7,6 +7,7 @@
 #include "ctre/phoenix/motorcontrol/SensorCollection.h"
 
 #include <sensor_msgs/Joy.h>
+#include <std_msgs/Int32.h>
 #include "DeviceIDs.h"
 #include "JoyMap.h"
 
@@ -73,6 +74,10 @@ int main (int argc, char **argv)
 
     phoenix::platform::can::SetCANInterface("can0");
 
+    std_msgs::Int32 motorPos;
+
+    ros::Publisher motorPosPub = n.advertise<std_msgs::Int32>("motorPos", 100);
+
     ros::Subscriber joySub = n.subscribe("joy", 100, JoyListener);
 
     int toggleButton = {JoyMap::toggle};
@@ -84,6 +89,9 @@ int main (int argc, char **argv)
         int toggleData = Toggle(buttons[toggleButton], buttonCurrent, buttonPress);
 
         SpinMotor(toggleData);
+
+        motorPos.data = motor.GetSensorCollection().GetQuadraturePosition();
+        motorPosPub.publish(motorPos);
 
         ros::spinOnce();
         loop_rate.sleep();
