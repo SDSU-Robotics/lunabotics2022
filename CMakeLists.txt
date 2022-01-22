@@ -27,8 +27,14 @@ catkin_package()
 
 include_directories (src include ${catkin_INCLUDE_DIRS})
 
-add_executable(Izaktalker ${PROJECT_SOURCE_DIR}/src/Izaktalker.cpp)
-target_link_libraries(Izaktalker ${catkin_LIBRARIES} Threads::Threads)
+add_executable(motorSpin ${PROJECT_SOURCE_DIR}/src/motorSpin.cpp)
+target_link_libraries(motorSpin ${catkin_LIBRARIES} Threads::Threads)
 
-add_executable(Izaklistener ${PROJECT_SOURCE_DIR}/src/Izaklistener.cpp)
-target_link_libraries(Izaklistener ${catkin_LIBRARIES} Threads::Threads)
+add_executable(LEDToggle ${PROJECT_SOURCE_DIR}/src/LEDToggle.cpp)
+target_link_libraries(LEDToggle ${catkin_LIBRARIES} Threads::Threads)
+
+
+target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
+target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
+target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
+target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
