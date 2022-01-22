@@ -8,6 +8,7 @@
 
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/Int32.h>
+#include <std_msgs/Float32.h>
 #include "DeviceIDs.h"
 #include "JoyMap.h"
 
@@ -75,8 +76,10 @@ int main (int argc, char **argv)
     phoenix::platform::can::SetCANInterface("can0");
 
     std_msgs::Int32 motorPos;
-
+    std_msgs::Float32 motorCurrent;
+    
     ros::Publisher motorPosPub = n.advertise<std_msgs::Int32>("motorPos", 100);
+    ros::Publisher motorCurrentPub = n.advertise<std_msgs::Int32>("motorCurrent", 100);
 
     ros::Subscriber joySub = n.subscribe("joy", 100, JoyListener);
 
@@ -92,6 +95,9 @@ int main (int argc, char **argv)
 
         motorPos.data = motor.GetSensorCollection().GetQuadraturePosition();
         motorPosPub.publish(motorPos);
+
+        motorCurrent.data = motor.GetOutputCurrent();
+        motorCurrentPub.publish(motorCurrent);
 
         ros::spinOnce();
         loop_rate.sleep();
