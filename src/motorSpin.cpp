@@ -93,6 +93,9 @@ int main (int argc, char **argv)
         motorPos.data = motor.GetSensorCollection().GetQuadraturePosition();
         motorPosPub.publish(motorPos);
 
+        string mssg = to_string(motorPos.data);
+        cout << mssg << endl;
+
         ros::spinOnce();
         loop_rate.sleep();
 
