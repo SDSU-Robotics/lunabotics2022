@@ -76,7 +76,7 @@ int main (int argc, char **argv)
     phoenix::platform::can::SetCANInterface("can0");
 
     std_msgs::Int32 motorPos;
-    std_msgs::Float32 motorCurrent;
+    std_msgs::Int32 motorCurrent;
     
     ros::Publisher motorPosPub = n.advertise<std_msgs::Int32>("motorPos", 100);
     ros::Publisher motorCurrentPub = n.advertise<std_msgs::Int32>("motorCurrent", 100);
@@ -96,13 +96,11 @@ int main (int argc, char **argv)
         motorPos.data = motor.GetSensorCollection().GetQuadraturePosition();
         motorPosPub.publish(motorPos);
 
-<<<<<<< HEAD
-        string mssg = to_string(motorPos.data);
-        cout << mssg << endl;
-=======
         motorCurrent.data = motor.GetOutputCurrent();
         motorCurrentPub.publish(motorCurrent);
->>>>>>> 1849822667d4dce93ac67279833411b2257a3541
+
+        string mssg = to_string(motorCurrent.data);
+        cout << mssg << endl;
 
         ros::spinOnce();
         loop_rate.sleep();
