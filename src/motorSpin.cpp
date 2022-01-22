@@ -1,27 +1,17 @@
 #include "ros/ros.h"
 #include "iostream"
 
-<<<<<<< HEAD
-#include <sensor_msgs/Joy.h>
-#include "JoyMap.h"
-#include "DeviceIDs.h"
-
-=======
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
 #include "ctre/Phoenix.h"
 #include "ctre/phoenix/platform/Platform.h"
 #include "ctre/phoenix/unmanaged/Unmanaged.h"
 #include "ctre/phoenix/motorcontrol/SensorCollection.h"
 
-<<<<<<< HEAD
-=======
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Float32.h>
 #include "DeviceIDs.h"
 #include "JoyMap.h"
 
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
 using namespace std;
 
 using namespace ctre::phoenix;
@@ -34,15 +24,6 @@ double axes[6] = { 0 };
 
 TalonSRX motor = {DeviceIDs::motor};
 
-<<<<<<< HEAD
-void JoyListener(const sensor_msgs::Joy::ConstPtr& Joy)
-{
-    for (int i = 0; i < 12; i++)
-        buttons[i] = Joy->buttons[i];
-
-    for (int i = 0; i < 6; i++)
-        axes[i] = Joy->axes[i];
-=======
 // check if func needs to be before or after int main
 // then adjust accordingly in the doc
 
@@ -64,29 +45,21 @@ void SpinMotor (int toggleData)
 
     ctre::phoenix::unmanaged::FeedEnable(100);
 
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
 }
 
 int Toggle(const bool b, bool &current, bool &on)
 {
     int toggleData;
-<<<<<<< HEAD
     bool prev = current;
     current = b;
 
     if(prev && !current)
         on = !on;
 
-    if(on)
-=======
-
-    bool prev = b;
-
     if (prev && !current)
         on = !on;
     
     if (on)
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
         toggleData = 1;
 
     else 
@@ -95,16 +68,8 @@ int Toggle(const bool b, bool &current, bool &on)
     return toggleData;
 }
 
-<<<<<<< HEAD
-void SpinMotor (int toggleData)
-{
-    motor.Set(ControlMode::PercentOutput, toggleData);
 
-    ctre::phoenix::unmanaged::FeedEnable(100);
-}
-=======
 //int mains
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
 
 int main (int argc, char **argv)
 {
@@ -114,33 +79,25 @@ int main (int argc, char **argv)
 
     phoenix::platform::can::SetCANInterface("can0");
 
-<<<<<<< HEAD
-=======
     std_msgs::Int32 motorPos;
     std_msgs::Int32 motorCurrent;
     
     ros::Publisher motorPosPub = n.advertise<std_msgs::Int32>("motorPos", 100);
     ros::Publisher motorCurrentPub = n.advertise<std_msgs::Int32>("motorCurrent", 100);
 
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
     ros::Subscriber joySub = n.subscribe("joy", 100, JoyListener);
 
     int toggleButton = {JoyMap::toggle};
     bool buttonCurrent = false;
     bool buttonPress = false;
-<<<<<<< HEAD
     
-=======
 
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
     while(ros::ok())
     {
         int toggleData = Toggle(buttons[toggleButton], buttonCurrent, buttonPress);
 
         SpinMotor(toggleData);
 
-<<<<<<< HEAD
-=======
         motorPos.data = motor.GetSensorCollection().GetQuadraturePosition();
         motorPosPub.publish(motorPos);
 
@@ -150,17 +107,12 @@ int main (int argc, char **argv)
         string mssg = to_string(motorCurrent.data);
         cout << mssg << endl;
 
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
         ros::spinOnce();
         loop_rate.sleep();
 
     }
 
     return 0;
-<<<<<<< HEAD
-}
-=======
 }
 
 
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813

@@ -30,26 +30,18 @@ include_directories (src include ${catkin_INCLUDE_DIRS})
 add_executable(motorSpin ${PROJECT_SOURCE_DIR}/src/motorSpin.cpp)
 target_link_libraries(motorSpin ${catkin_LIBRARIES} Threads::Threads)
 
-<<<<<<< HEAD
-add_executable(LEDToggle ${PROJECT_SOURCE_DIR}/src/LEDToggle.cpp)
-target_link_libraries(LEDToggle ${catkin_LIBRARIES} Threads::Threads)
 
-=======
+
 add_executable(Izaklistener ${PROJECT_SOURCE_DIR}/src/Izaklistener.cpp)
 target_link_libraries(Izaklistener ${catkin_LIBRARIES} Threads::Threads)
 
-add_executable(motorSpin ${PROJECT_SOURCE_DIR}/src/motorSpin.cpp)
-target_link_libraries(motorSpin ${catkin_LIBRARIES} Threads::Threads)
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
+
 
 target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
 target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
 target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
 target_link_libraries(motorSpin ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
-<<<<<<< HEAD
-=======
 
 
 add_executable(LEDToggle ${PROJECT_SOURCE_DIR}/src/LEDToggle)
 target_link_libraries(LEDToggle ${catkin_LIBRARIES} Threads::Threads)
->>>>>>> 68ba0efb6bb489f10b33a276f1ad40fdfeaa8813
