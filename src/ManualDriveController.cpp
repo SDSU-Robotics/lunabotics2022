@@ -177,14 +177,18 @@ int main (int argc, char **argv)
 	ros::Publisher auger_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
 	ros::Publisher lin_act_toggle_pub = n.advertise<std_msgs::Float32>("LinActToggle", 100);
 	ros::Publisher servo_toggle_pub = n.advertise<std_msgs::UInt16>("ServoToggle", 100);
-	
+	ros::Publisher augorRaisePub = n.advertise<std_msgs::Float32>("Auger Raise", 100);
+	ros::Publisher augorLowerPub = n.advertise<std_msgs::Float32>("Auger Lower", 100);
+
 	// messages: one for each publisher above. Data type must match that of the publisher
     std_msgs::Float32 l_speed_msg;
     std_msgs::Float32 r_speed_msg;
 	std_msgs::Float32 auger_toggle_msg;
 	std_msgs::Float32 lin_act_toggle_msg;
 	std_msgs::UInt16 servo_toggle_msg;
-	
+	std_msgs::Float32 augerRaise;
+	std_msgs::Float32 augerLower;
+
 	//required for ROS to work
 	while (ros::ok())
 	{
@@ -215,6 +219,10 @@ int main (int argc, char **argv)
 		listener.toggleServo(buttons[servo], servoCurrent, servoOn, servo_toggle_msg);
 		servo_toggle_pub.publish(servo_toggle_msg);
 		
+		// Lower(LT) and Raise(RT) Auger
+		augerRaise.data = axes[leftTrigger];
+    	augerLower.data = axes[rightTrigger];
+
 		//required for ROS to work
 		ros::spinOnce();
 		loop_rate.sleep();
