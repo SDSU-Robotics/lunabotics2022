@@ -10,7 +10,7 @@ namespace DeviceIDs
 	static const int augerPositionTalon = 2; //temp id 8 can be changed, needed to compile
 
 
-	static const int dumpMotor = 2;
+	static const int dumpMotor = 8;
 
 };
 
