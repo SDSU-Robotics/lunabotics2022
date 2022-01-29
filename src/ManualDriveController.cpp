@@ -4,12 +4,13 @@
 
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
+#include "std_msgs/Int32.h"
 #include "std_msgs/UInt16.h"
 #include <sensor_msgs/Joy.h>
 #include "std_msgs/Bool.h"
 //include to access JoyMap.h file wich stores all the button mapping for Joystick
 #include "JoyMap.h"
-
+#include "DeviceIDs.h"
 //required
 using namespace std;
 
@@ -171,14 +172,17 @@ int main (int argc, char **argv)
 	int Lstick_Yaxis = {JoyMap::LeftDrive};
     int Rstick_Yaxis = {JoyMap::RightDrive};
 
+	int leftTrigger = {JoyMap::LeftTrigger};
+    int rightTrigger = {JoyMap::RightTrigger};
+
 	// publishers: one for each message that we are broadcasting. The name within the quations must be unique (this is the TOPIC).
     ros::Publisher r_drive_pub = n.advertise<std_msgs::Float32>("RDrvPwr", 100);
 	ros::Publisher l_drive_pub = n.advertise<std_msgs::Float32>("LDrvPwr", 100);
 	ros::Publisher auger_toggle_pub = n.advertise<std_msgs::Float32>("AugerToggle", 100);
 	ros::Publisher lin_act_toggle_pub = n.advertise<std_msgs::Float32>("LinActToggle", 100);
 	ros::Publisher servo_toggle_pub = n.advertise<std_msgs::UInt16>("ServoToggle", 100);
-	ros::Publisher augorRaisePub = n.advertise<std_msgs::Float32>("Auger Raise", 100);
-	ros::Publisher augorLowerPub = n.advertise<std_msgs::Float32>("Auger Lower", 100);
+	ros::Publisher augorRaisePub = n.advertise<std_msgs::Int32>("Auger Raise", 100);
+	ros::Publisher augorLowerPub = n.advertise<std_msgs::Int32>("Auger Lower", 100);
 
 	// messages: one for each publisher above. Data type must match that of the publisher
     std_msgs::Float32 l_speed_msg;
@@ -186,8 +190,8 @@ int main (int argc, char **argv)
 	std_msgs::Float32 auger_toggle_msg;
 	std_msgs::Float32 lin_act_toggle_msg;
 	std_msgs::UInt16 servo_toggle_msg;
-	std_msgs::Float32 augerRaise;
-	std_msgs::Float32 augerLower;
+	std_msgs::Int32 augerRaise;
+	std_msgs::Int32 augerLower;
 
 	//required for ROS to work
 	while (ros::ok())

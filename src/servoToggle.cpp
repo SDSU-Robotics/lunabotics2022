@@ -1,5 +1,5 @@
-#include "ros/ros.h"
-#include "iostream"
+/* #include "ros/ros.h"
+#include "iostream" 
 
 #include <sensor_msgs/Joy.h>
 #include "JoyMap.h"
@@ -9,7 +9,7 @@
 bool buttons[12] = {0};
 double axes[6] = {0};
 
-/*==========================================================*/
+
 
  void JoyListener(const sensor_msgs::Joy::ConstPtr& Joy)
  {
@@ -20,7 +20,6 @@ double axes[6] = {0};
         buttons[i] = Joy->axes[i];
  }
 
-/*==========================================================*/
  int Toggle(const bool b, bool &current,bool &on) 
  {
    int toggleData;
@@ -40,8 +39,8 @@ double axes[6] = {0};
     return toggleData;
  }
 
- /*==========================================================*/
-
+ 
+/*
  int main(int argc, char **argv)
  {
      ros::init(argc, argv, "servoControl");
@@ -71,3 +70,4 @@ double axes[6] = {0};
      }
      return 0;
  }
+*/
