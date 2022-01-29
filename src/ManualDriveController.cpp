@@ -224,7 +224,7 @@ int main (int argc, char **argv)
 		servo_toggle_pub.publish(servo_toggle_msg);
 		
 		// Lower(LT) and Raise(RT) Auger
-		augerRaise.data = axes[leftTrigger];
+		augerRaise.data = axes[leftTrigger]*-1;
     	augerLower.data = axes[rightTrigger];
 
 		//required for ROS to work

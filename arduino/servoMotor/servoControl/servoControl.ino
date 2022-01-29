@@ -10,13 +10,18 @@
 
  #include "JoyMap.h"
  #include <sensor_msgs/Joy.h>
+
+ bool buttons[12] = { 0};
+ double axes[6] = {0};
  
- 
+
  
 
  ros::NodeHandle  nh;
 
  Servo servo;
+
+ 
 
  void servo_cb( const std_msgs::UInt16& cmd_msg){
   servo.write(smd_msg.data);

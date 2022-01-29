@@ -17,8 +17,6 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 TalonSRX augerPostionTalon = {DeviceIDs::augerPositionTalon};
 
-
-
 // Functions
 
 
@@ -53,22 +51,15 @@ int main (int argc, char **argv)
     ros::NodeHandle n;
     ros::Rate loop_rate(100);
 
- 
-
     phoenix::platform::can::SetCANInterface("can0");
     
-
     //Function Calling
 
+    ros::Subscriber augerRaise = n.subscribe("Auger_Raise", 100, AugerUp);
+    ros::Subscriber augerLower = n.subscribe("Auger_Lower", 100, AugerDown);
     
-    ros::Subscriber augerRaise = n.subscribe("Auger Raise", 100, AugerUp);
-    ros::Subscriber augerLower = n.subscribe("Auger Lower", 100, AugerDown);
-    
-
     while(ros::ok())
     {
-       
-
         ros::spinOnce();
         loop_rate.sleep();
     }

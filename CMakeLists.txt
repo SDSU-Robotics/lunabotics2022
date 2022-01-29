@@ -51,12 +51,11 @@ target_link_libraries(AugerControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoe
 target_link_libraries(AugerControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
 target_link_libraries(AugerControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
 
-<<<<<<< HEAD
 target_link_libraries(DumperMotor ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
 target_link_libraries(DumperMotor ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
 target_link_libraries(DumperMotor ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
 target_link_libraries(DumperMotor ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
-=======
+
 target_link_libraries(AugerPosition ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoenix.a)
 target_link_libraries(AugerPosition ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCCI.a)
 target_link_libraries(AugerPosition ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
@@ -67,4 +66,3 @@ target_link_libraries(servoToggle ${catkin_LIBRARIES} Threads::Threads)
 
 
 
->>>>>>> f7dfdf49be9fc0dd34dc6182fabe6b0f2a535a42

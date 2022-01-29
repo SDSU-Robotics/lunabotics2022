@@ -19,8 +19,6 @@ namespace JoyMap
     static const int LeftDrive = 1; // Up/Down Axis stick left
     static const int RightDrive = 4; // Up/Down Axis stick right
 
-    static const int Servo = 1; // B
-
     // DumperMotor
     static const int CW = 0; // A
     static const int CCW = 1; // B
