@@ -24,6 +24,14 @@ namespace JoyMap
     // DumperMotor
     static const int CW = 0; // A
     static const int CCW = 1; // B
+    
+
+    //Auger Position Adjust - Axes
+    static const int LeftTrigger = 2; // Auger Down
+    static const int RightTrigger = 5; // Auger Up
+
+    //Servo Toggle
+    static const int Servo = 6; // Back
 };
 
 #endif
