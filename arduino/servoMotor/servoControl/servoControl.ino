@@ -7,6 +7,11 @@
  #include <Servo.h>
  #include <ros.h>
  #include <std_msgs/UInt16.h>
+
+ #include "JoyMap.h"
+ #include <sensor_msgs/Joy.h>
+ 
+ 
  
 
  ros::NodeHandle  nh;

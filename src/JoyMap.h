@@ -43,6 +43,7 @@ namespace JoyMap
     //Auger Position Adjust - Axes
     static const int LeftTrigger = 2; // Auger Down
     static const int RightTrigger = 5; // Auger Up
+    static const int Servo = 6; // Back
 };
 
 #endif

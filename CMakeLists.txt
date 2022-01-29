@@ -46,4 +46,8 @@ target_link_libraries(AugerControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_Phoe
 target_link_libraries(AugerControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixPlatformLinuxSocketCan.a)
 target_link_libraries(AugerControl ${PROJECT_SOURCE_DIR}/lib/x86-64/libCTRE_PhoenixCanutils.a)
 
+add_executable(servoToggle ${PROJECT_SOURCE_DIR}/src/servoToggle.cpp)
+target_link_libraries(servoToggle ${catkin_LIBRARIES} Threads::Threads)
+
+
 
