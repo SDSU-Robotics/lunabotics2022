@@ -2,11 +2,9 @@
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
 #include "std_msgs/Int32.h"
-#include "geometry_msgs/Twist.h"
 #include "ctre/phoenix/platform/Platform.h"
 #include "ctre/phoenix/unmanaged/Unmanaged.h"
 #include "DeviceIDs.h"
-#include <sensor_msgs/Joy.h>
 #include "ctre/phoenix/motorcontrol/SensorCollection.h"
 #include <iostream>
 #include <string>
@@ -24,25 +22,28 @@ TalonSRX augerPostionTalon = {DeviceIDs::augerPositionTalon};
 // Functions
 
 
-void AugerUp(std_msgs::Int32 augerRaise)
+void AugerUp(const std_msgs::Int32 augerRaise)
 {
-    if(augerRaise.data < 0){
-        augerRaise.data = 0;
+    int motorValue = augerRaise.data;
+
+    if(motorValue < 0){
+        motorValue = 0;
     }
 
-    augerPostionTalon.Set(ControlMode::PercentOutput, augerRaise);
+    augerPostionTalon.Set(ControlMode::PercentOutput, motorValue);
 	
 	ctre::phoenix::unmanaged::FeedEnable(100);
 }
 
-void AugerDown(std_msgs::Int32 augerLower)
+void AugerDown(const std_msgs::Int32 augerLower)
 {
-    if(augerLower.data < 0){
-        augerLower.data = 0;
-    }
-    augerPostionTalon.Set(ControlMode::PercentOutput, augerLower);
+    int motorValue = augerLower.data;
 
-	
+    if(motorValue < 0){
+        motorValue = 0;
+    }
+    augerPostionTalon.Set(ControlMode::PercentOutput, motorValue);
+
 	ctre::phoenix::unmanaged::FeedEnable(100);
 }
 
