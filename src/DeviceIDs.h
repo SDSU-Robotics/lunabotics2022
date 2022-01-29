@@ -7,7 +7,8 @@ namespace DeviceIDs
 	static const int ExcvDrvRTal = 7; //****
 	static const int AugerTal = 3;
 	static const int canifier = 16;
-	static const int augerPostionTalon = ??; //Need can ID
+	static const int augerPostionTalon = 8; //temp id 8 can be changed, needed to compile
+	
 
 };
 
