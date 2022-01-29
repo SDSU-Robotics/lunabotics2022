@@ -34,6 +34,10 @@ void JoyListener(const sensor_msgs::Joy::ConstPtr& Joy)
 
 void AugerUp(const std_msgs::Float32 augerRaise)
 {
+    if(augerRaise.data < 0){
+        augerRaise.data = 0
+    }
+
     augerPostionTalon.Set(ControlMode::PercentOutput, augerRaise);
 	
 	ctre::phoenix::unmanaged::FeedEnable(100);
@@ -41,6 +45,9 @@ void AugerUp(const std_msgs::Float32 augerRaise)
 
 void AugerDown(const std_msgs::Float32 augerLower)
 {
+    if(augerLower.data < 0){
+        augerLower.data = 0
+    }
     augerPostionTalon.Set(ControlMode::PercentOutput, augerLower);
 	
 	ctre::phoenix::unmanaged::FeedEnable(100);
@@ -62,17 +69,11 @@ int main (int argc char **argv)
 
     ros::Subscriber joySub = n.subscribe("joy", 100, joyListener);
     ros::Subscriber augerRaise = n.subscribe("Auger Raise", 100, augerUp);
-    ros::Subscriber augerLower = n.subscribe("Auger Lower", 100, augerDown)
+    ros::Subscriber augerLower = n.subscribe("Auger Lower", 100, augerDown);
     
 
     while(ros::ok())
     {
-
-        if (leftTrigger = 1){
-            AugerDown()
-        }
-
-
         ros::spinOnce();
         loop_rate.sleep();
     }
